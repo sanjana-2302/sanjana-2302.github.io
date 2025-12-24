@@ -836,11 +836,12 @@ a:hover {
 /* Experience Section */
 #experience {
   background-color: var(--light-color);
+  padding: 5rem 0;
 }
 
 .timeline {
   position: relative;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem 0;
 }
@@ -853,16 +854,19 @@ a:hover {
   transform: translateX(-50%);
   width: 2px;
   height: 100%;
-  background: var(--primary-light);
-  opacity: 0.2;
+  background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
+  opacity: 0.3;
 }
 
 .timeline-item {
   position: relative;
   margin-bottom: 4rem;
+  width: 100%;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .timeline-item.animate {
@@ -878,62 +882,69 @@ a:hover {
   height: 20px;
   border-radius: 50%;
   background: var(--gradient);
-  border: 3px solid white;
-  z-index: 1;
+  border: 4px solid white;
+  box-shadow: 0 0 0 2px var(--primary-light);
+  z-index: 2;
+  transition: all 0.3s ease;
 }
 
 .timeline-content {
   position: relative;
-  width: calc(50% - 40px);
-  padding: 2rem;
-  background: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  width: calc(50% - 60px);
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .timeline-item:nth-child(odd) .timeline-content {
   margin-left: auto;
-  margin-right: 40px;
+  margin-right: 30px;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
-  margin-left: 40px;
+  margin-left: 30px;
 }
 
 .timeline-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .timeline-header h3 {
   margin: 0;
   color: var(--primary-color);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .timeline-date {
   background: rgba(99, 102, 241, 0.1);
   color: var(--primary-color);
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.8rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .timeline-content h4 {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
+  margin: 0.3rem 0 0.5rem;
+  font-size: 1rem;
   color: var(--text-color);
+  font-weight: 600;
 }
 
 .timeline-content .location {
   color: var(--text-light);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -941,39 +952,54 @@ a:hover {
 
 .timeline-content .location i {
   color: var(--primary-color);
+  font-size: 0.9em;
 }
 
 .timeline-description {
   margin: 1rem 0 0;
-  padding-left: 1.25rem;
+  padding-left: 0;
+  list-style: none;
 }
 
 .timeline-description li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   line-height: 1.6;
   color: var(--text-light);
   position: relative;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
 }
 
 .timeline-description li::before {
-  content: '•';
+  content: '▹';
   color: var(--primary-color);
-  font-weight: bold;
-  display: inline-block;
-  width: 1em;
-  margin-left: -1em;
   position: absolute;
   left: 0;
+  top: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Hover Effects */
+.timeline-content:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-dot:hover {
+  transform: translateX(-50%) scale(1.2);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
 }
 
 /* Responsive Design for Timeline */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .timeline::before {
     left: 20px;
   }
 
   .timeline-item {
     padding-left: 50px;
+    padding-right: 0;
   }
 
   .timeline-dot {
@@ -982,19 +1008,36 @@ a:hover {
   }
 
   .timeline-content {
-    width: 100%;
+    width: calc(100% - 40px);
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 
   .timeline-header {
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 0.3rem;
   }
 
   .timeline-date {
-    align-self: flex-start;
+    margin-top: 0.2rem;
   }
+}
+
+/* Animation for timeline items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-item.animate {
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
 /* Footer */
