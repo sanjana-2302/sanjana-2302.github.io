@@ -836,14 +836,17 @@ a:hover {
 /* Experience Section */
 #experience {
   background-color: var(--light-color);
-  padding: 5rem 0;
+  padding: 5rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .timeline {
   position: relative;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 3rem 0;
+  width: 100%;
 }
 
 .timeline::before {
@@ -855,7 +858,8 @@ a:hover {
   width: 2px;
   height: 100%;
   background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
-  opacity: 0.3;
+  opacity: 0.2;
+  z-index: 1;
 }
 
 .timeline-item {
@@ -867,6 +871,10 @@ a:hover {
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0 2rem;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 200px;
 }
 
 .timeline-item.animate {
@@ -877,11 +885,12 @@ a:hover {
 .timeline-dot {
   position: absolute;
   left: 50%;
+  top: 0;
   transform: translateX(-50%);
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--gradient);
+  background: var(--primary-color);
   border: 4px solid white;
   box-shadow: 0 0 0 2px var(--primary-light);
   z-index: 2;
@@ -890,22 +899,54 @@ a:hover {
 
 .timeline-content {
   position: relative;
-  width: calc(50% - 60px);
+  width: 45%;
   padding: 1.5rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  margin: 0 10px;
 }
 
+/* Position items on alternating sides */
 .timeline-item:nth-child(odd) .timeline-content {
+  margin-right: 5%;
   margin-left: auto;
-  margin-right: 30px;
+  text-align: right;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
-  margin-left: 30px;
+  margin-left: 5%;
+  margin-right: auto;
+  text-align: left;
+}
+
+/* Add arrows */
+.timeline-item:nth-child(odd) .timeline-content::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid white;
+  z-index: 1;
+}
+
+.timeline-item:nth-child(even) .timeline-content::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid white;
+  z-index: 1;
 }
 
 .timeline-header {
@@ -993,6 +1034,10 @@ a:hover {
 
 /* Responsive Design for Timeline */
 @media (max-width: 900px) {
+  #experience {
+    padding: 3rem 1rem;
+  }
+  
   .timeline::before {
     left: 20px;
   }
@@ -1000,17 +1045,29 @@ a:hover {
   .timeline-item {
     padding-left: 50px;
     padding-right: 0;
+    min-height: auto;
+    margin-bottom: 2.5rem;
   }
 
   .timeline-dot {
     left: 20px;
     transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
   }
 
   .timeline-content {
     width: calc(100% - 40px);
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-content::after,
+  .timeline-item:nth-child(even) .timeline-content::after {
+    left: -10px;
+    right: auto;
+    border-left: none;
+    border-right: 10px solid white;
   }
 
   .timeline-header {
@@ -1021,6 +1078,15 @@ a:hover {
 
   .timeline-date {
     margin-top: 0.2rem;
+    margin-left: 0;
+  }
+  
+  .timeline-description {
+    padding-left: 0;
+  }
+  
+  .timeline-description li {
+    padding-left: 1.2rem;
   }
 }
 
